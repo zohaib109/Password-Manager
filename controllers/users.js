@@ -1,5 +1,4 @@
 import usersCollection from "../models/users.js";
-import passwordsCollection from "../models/passwords.js";
 
 async function handleUserSignup(req, res, next) {
   try {
@@ -30,4 +29,13 @@ async function handleUserLogin(req, res, next) {
   }
 }
 
-export { handleUserSignup, handleUserLogin };
+async function handleUserLogout(req, res) {
+  req.session.destroy((err) => {
+    if (err) {
+      next(err);
+    }
+    res.redirect('/');
+  });
+}
+
+export { handleUserSignup, handleUserLogin, handleUserLogout };

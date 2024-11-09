@@ -2,7 +2,7 @@ import express from "express";
 import path from "path";
 
 import sessionConfiguration from "./middlewares/sessionConfig.js";
-import { mongooseConnection } from "./utilities/database.js";
+import mongooseConnection from "./utilities/database.js";
 import staticRouter from "./routes/staticRouter.js";
 import usersRouter from "./routes/users.js";
 import dashboardRouter from "./routes/dashboardRouter.js";

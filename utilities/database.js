@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export async function mongooseConnection(databaseName) {
+async function mongooseConnection(databaseName) {
     try {
         await mongoose.connect(`mongodb://localhost:27017/${databaseName}`);
         console.log("MongoDB Connected");
@@ -9,3 +9,5 @@ export async function mongooseConnection(databaseName) {
         process.exit(1);
     }
 }
+
+export default mongooseConnection;
