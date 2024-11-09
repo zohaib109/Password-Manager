@@ -1,137 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SecureVault - Dashboard</title>
-    <link rel="stylesheet" href="/css/dashboard.css" />
-  </head>
-  <body>
-    <nav>
-      <div class="logo">SecureVault</div>
-      <div class="nav-links">
-        <a href="/logout">Logout</a>
-      </div>
-    </nav>
 
-    <div class="dashboard-container">
-      <div class="dashboard-header">
-        <h2>Your Passwords</h2>
-        <button class="add-new-btn" onclick="showAddModal()">
-          Add New Password
-        </button>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SecureVault - Dashboard</title>
+  <link rel="stylesheet" href="/css/dashboard.css" />
+</head>
 
-      <div class="passwords-grid" id="passwordsGrid">
-        <!-- Password cards will be dynamically added here ------------------------------------------------>
-        <% userPasswords.forEach(pass => { %> <% if(pass.note == "") {pass.note
-        = "No note added"} %>
-        <div class="password-card">
-          <h3><%= pass.name %></h3>
-          <% if (pass.url) { %>
-          <a href="<%= pass.url %>" target="_blank" class="url-link">
-            <%= pass.url %>
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-              ></path>
-              <polyline points="15 3 21 3 21 9"></polyline>
-              <line x1="10" y1="14" x2="21" y2="3"></line>
-            </svg>
-          </a>
-          <% } %>
-          <div class="password-details">
-            <div class="password-field">
-              <strong>Email:</strong> <%= pass.email %>
-            </div>
-            <div class="password-field">
-              <strong>Password:</strong>
-              <span class="password-hidden">********</span>
-              <span class="password-visible hidden">
-                <%= pass.password %>
-              </span>
-            </div>
-          </div>
+<body>
+  <nav>
+    <div class="logo">SecureVault</div>
+    <div class="nav-links">
+      <a href="/logout">Logout</a>
+    </div>
+  </nav>
 
-          <div class="notes-section">
-            <div class="notes-label">Notes:</div>
-            <div class="notes-content"><%= pass.note %></div>
+  <div class="dashboard-container">
+    <div class="dashboard-header">
+      <h2>Your Passwords</h2>
+      <button class="add-new-btn" onclick="showAddModal()">
+        Add New Password
+      </button>
+    </div>
+
+    <div class="passwords-grid" id="passwordsGrid">
+      <!-- Password cards will be dynamically added here ------------------------------------------------>
+      <% userPasswords.forEach(pass=> { %> <% if(pass.note=="" ) {pass.note="No note added" } %>
+          <div class="password-card">
+            <h3>
+              <%= pass.name %>
+            </h3>
+            <% if (pass.url) { %>
+              <a href="<%= pass.url %>" target="_blank" class="url-link">
+                <%= pass.url %>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+              </a>
+              <% } %>
+                <div class="password-details">
+                  <div class="password-field">
+                    <strong>Email:</strong>
+                    <%= pass.email %>
+                  </div>
+                  <div class="password-field">
+                    <strong>Password:</strong>
+                    <span class="password-hidden">********</span>
+                    <span class="password-visible hidden">
+                      <%= pass.password %>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="notes-section">
+                  <div class="notes-label">Notes:</div>
+                  <div class="notes-content">
+                    <%= pass.note %>
+                  </div>
+                </div>
+                <div class="password-actions">
+                  <button class="action-btn show-btn" onclick="togglePassword(this)">
+                    Show
+                  </button>
+                  <button class="action-btn edit-btn" id="<%= pass.id %>">
+                    Edit
+                  </button>
+                  <button class="action-btn delete-btn" id="<%= pass.id %>">
+                    Delete
+                  </button>
+                </div>
           </div>
-          <div class="password-actions">
-            <button class="action-btn show-btn" onclick="togglePassword(this)">
-              Show
-            </button>
-            <button class="action-btn edit-btn" id="<%= pass.id %>">
-              Edit
-            </button>
-            <button class="action-btn delete-btn" id="<%= pass.id %>">
-              Delete
-            </button>
-          </div>
+          <% }) %>
+    </div>
+  </div>
+
+  <!-- Add/Edit Password Modal -->
+  <div class="modal" id="passwordModal">
+    <div class="modal-content">
+      <h3 id="modalTitle">Add New Password</h3>
+      <form id="passwordForm" action="/passwords" method="post">
+        <input type="text" name="name" placeholder="Website/App Name" id="nameInput" autocomplete="off" required />
+        <input type="url" name="url" placeholder="Website URL (e.g., https://example.com)" id="urlInput" />
+        <input type="email" name="email" placeholder="Email/Username" id="emailInput" autocomplete="on" required />
+        <input type="password" name="password" placeholder="Password" id="passwordInput" autocomplete="off" required />
+        <textarea name="note" placeholder="Add notes..." id="notesInput"></textarea>
+        <div class="modal-buttons">
+          <button type="button" class="action-btn" onclick="hideModal()">
+            Cancel
+          </button>
+          <button type="submit" class="action-btn show-btn">Save</button>
         </div>
-        <% }) %>
-      </div>
+      </form>
     </div>
-
-    <!-- Add/Edit Password Modal -->
-    <div class="modal" id="passwordModal">
-      <div class="modal-content">
-        <h3 id="modalTitle">Add New Password</h3>
-        <form id="passwordForm" action="/passwords" method="post">
-          <input
-            type="text"
-            name="name"
-            placeholder="Website/App Name"
-            id="nameInput"
-            autocomplete="off"
-            required
-          />
-          <input
-            type="url"
-            name="url"
-            placeholder="Website URL (e.g., https://example.com)"
-            id="urlInput"
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email/Username"
-            id="emailInput"
-            autocomplete="on"
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            id="passwordInput"
-            autocomplete="off"
-            required
-          />
-          <textarea
-            name="note"
-            placeholder="Add notes..."
-            id="notesInput"
-          ></textarea>
-          <div class="modal-buttons">
-            <button type="button" class="action-btn" onclick="hideModal()">
-              Cancel
-            </button>
-            <button type="submit" class="action-btn show-btn">Save</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <script type="">
+  </div>
+  <script type="">
       const userPasswords = <%- JSON.stringify(userPasswords) %>;
     </script>
-    <script src="/js/dashboard.js"></script>
-  </body>
+  <script src="/js/dashboard.js"></script>
+</body>
+
 </html>

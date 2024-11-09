@@ -1,5 +1,4 @@
 import passwordsCollection from "../models/passwords.js";
-import { handleFetchPasswordsFromDB } from "./dashboard.js";
 
 async function handleAddNewPassword(req, res, next) {
   try {
@@ -17,10 +16,7 @@ async function handleAddNewPassword(req, res, next) {
       createdBy: req.session.userId,
     });
 
-    const userPasswords = await passwordsCollection.find({
-      createdBy: req.session.userId,
-    });
-    res.render("dashboard", { userPasswords });
+    res.redirect("/dashboard");
   } catch (err) {
     next(err);
   }

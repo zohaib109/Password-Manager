@@ -22,13 +22,9 @@ async function handleUserLogin(req, res, next) {
     const user = await usersCollection.findOne({ email, password });
     if (!user) {
       res.redirect("/?error=Invalid Credentials");
-    } else {
-      req.session.userId = user._id;
-      const userPasswords = await passwordsCollection.find({
-        createdBy: req.session.userId,
-      });
-      res.render("dashboard", { userPasswords });
     }
+    req.session.userId = user._id;
+    res.redirect("/dashboard");
   } catch (err) {
     next(err);
   }
