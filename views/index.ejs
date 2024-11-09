@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SecureVault - Password Manager</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <nav>
+      <div class="logo">SecureVault</div>
+      <div class="nav-links">
+        <a class="loginBtn">Login</a>
+        <a class="signupBtn">Sign Up</a>
+      </div>
+    </nav>
+
+    <dialog class="modal">
+      <div class="modal-content">
+        <h3 id="modalTitle"></h3>
+        <form class="inputForm" method="post">
+          <input
+            class="text-input"
+            type="text"
+            name="name"
+            placeholder="Username"
+            id="usernameInput"
+            autocomplete="off"
+            required
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            id="emailInput"
+            autocomplete="off"
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            id="passwordInput"
+            required
+          />
+          <div class="modal-buttons">
+            <button type="button" class="action-btn cancel-btn">Cancel</button>
+            <button
+              type="submit"
+              class="action-btn show-btn submit-btn"
+            ></button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+
+    <% if (error) { %>
+    <div class="error-message">
+      Incorrect email or password. Enter your sign in information again, or sign
+      up to create an account.
+    </div>
+    <% } %>
+
+    <main>
+      <section class="hero">
+        <h1>Secure Password Management Made Simple</h1>
+        <p>
+          Store, manage, and protect your passwords with military-grade
+          encryption. Take control of your digital security with SecureVault.
+        </p>
+
+        <div class="cta-buttons">
+          <a class="cta-button primary-btn signupBtn">Get Started</a>
+          <a class="cta-button secondary-btn loginBtn">Login</a>
+        </div>
+      </section>
+
+      <section class="features">
+        <div class="feature-card">
+          <h3>Store Passwords</h3>
+          <p>
+            Securely store all your passwords in one place with easy access
+            whenever you need them.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>Easy Management</h3>
+          <p>
+            Add, update, or delete your stored passwords with simple and
+            intuitive controls.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <h3>Secure Access</h3>
+          <p>
+            Your data is protected with strong encryption and accessible only to
+            you.
+          </p>
+        </div>
+      </section>
+    </main>
+    <script src="/js/index.js"></script>
+  </body>
+</html>
