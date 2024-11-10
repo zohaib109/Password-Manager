@@ -20,7 +20,7 @@ async function handleUserLogin(req, res, next) {
     const { email, password } = req.body;
     const user = await usersCollection.findOne({ email, password });
     if (!user) {
-      res.redirect("/?error=Invalid Credentials");
+      return res.redirect("/?error=Invalid Credentials");
     }
     req.session.userId = user._id;
     res.redirect("/dashboard");
@@ -32,7 +32,7 @@ async function handleUserLogin(req, res, next) {
 async function handleUserLogout(req, res) {
   req.session.destroy((err) => {
     if (err) {
-      next(err);
+      return next(err);
     }
     res.redirect('/');
   });
