@@ -65,41 +65,41 @@
                   <button class="action-btn show-btn" onclick="togglePassword(this)">
                     Show
                   </button>
-                  <button class="action-btn edit-btn" id="<%= pass.id %>">
+                  <button class="action-btn edit-btn" id="<%= pass._id %>">
                     Edit
                   </button>
-                  <button class="action-btn delete-btn" id="<%= pass.id %>">
+                  <button class="action-btn delete-btn" onclick="deletePassword('<%= pass._id %>')">
                     Delete
                   </button>
                 </div>
           </div>
           <% }) %>
-    </div>
-  </div>
+    </div </div>
 
-  <!-- Add/Edit Password Modal -->
-  <div class="modal" id="passwordModal">
-    <div class="modal-content">
-      <h3 id="modalTitle">Add New Password</h3>
-      <form id="passwordForm" action="/passwords" method="post">
-        <input type="text" name="name" placeholder="Website/App Name" id="nameInput" autocomplete="off" required />
-        <input type="url" name="url" placeholder="Website URL (e.g., https://example.com)" id="urlInput" />
-        <input type="email" name="email" placeholder="Email/Username" id="emailInput" autocomplete="on" required />
-        <input type="password" name="password" placeholder="Password" id="passwordInput" autocomplete="off" required />
-        <textarea name="note" placeholder="Add notes..." id="notesInput"></textarea>
-        <div class="modal-buttons">
-          <button type="button" class="action-btn" onclick="hideModal()">
-            Cancel
-          </button>
-          <button type="submit" class="action-btn show-btn">Save</button>
-        </div>
-      </form>
+    <!-- Add/Edit Password Modal -->
+    <div class="modal" id="passwordModal">
+      <div class="modal-content">
+        <h3 id="modalTitle">Add New Password</h3>
+        <form id="passwordForm" action="/passwords" method="post">
+          <input type="text" name="name" placeholder="Website/App Name" id="nameInput" autocomplete="off" required />
+          <input type="url" name="url" placeholder="Website URL (e.g., https://example.com)" id="urlInput" />
+          <input type="email" name="email" placeholder="Email/Username" id="emailInput" autocomplete="on" required />
+          <input type="password" name="password" placeholder="Password" id="passwordInput" autocomplete="off"
+            required />
+          <textarea name="note" placeholder="Add notes..." id="notesInput"></textarea>
+          <div class="modal-buttons">
+            <button type="button" class="action-btn" onclick="hideModal()">
+              Cancel
+            </button>
+            <button type="submit" class="action-btn show-btn">Save</button>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
-  <script type="">
+    <script type="">
       const userPasswords = <%- JSON.stringify(userPasswords) %>;
     </script>
-  <script src="/js/dashboard.js"></script>
+    <script src="/js/dashboard.js"></script>
 </body>
 
 </html>

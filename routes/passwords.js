@@ -1,11 +1,10 @@
 import express from "express";
-import { handleAddNewPassword } from "../controllers/passwords.js";
+import { handleAddNewPassword, handleDeletePassword, handleEditPassword } from "../controllers/passwords.js";
 
 const passwordsRouter = express.Router();
 
 passwordsRouter.post("/", handleAddNewPassword);
-// passwordsRouter.patch("/", handleUpdatePassword);
-// passwordsRouter.delete("/", handleDeletePassword);
-// passwordsRouter.get("/", handleGetPasswords);
+passwordsRouter.delete("/", handleDeletePassword);
+passwordsRouter.post("/:id", handleEditPassword);
 
 export default passwordsRouter;

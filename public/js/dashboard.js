@@ -20,7 +20,7 @@ function togglePassword(button) {
 function showAddModal() {
   document.getElementById("modalTitle").textContent = "Add New Password";
   passwordForm.reset();
-  passwordForm.method = "post";
+  passwordForm.action = "/passwords";
   modal.style.display = "flex";
 }
 
@@ -28,7 +28,7 @@ function showAddModal() {
 document.querySelectorAll(".edit-btn").forEach((editBtn) => {
   editBtn.addEventListener("click", () => {
     for (let i = 0; i < userPasswords.length; i++) {
-      if (editBtn.id == userPasswords[i].id) {
+      if (editBtn.id == userPasswords[i]._id) {
         showEditModal(userPasswords[i]);
         break;
       }
@@ -43,7 +43,7 @@ function showEditModal(pass) {
   document.getElementById("emailInput").value = pass.email;
   document.getElementById("passwordInput").value = pass.password;
   document.getElementById("notesInput").value = pass.note || "";
-  passwordForm.method = "patch";
+  passwordForm.action = `/passwords/${pass._id}`;
   modal.style.display = "flex";
 }
 
@@ -59,3 +59,24 @@ window.onclick = (event) => {
     hideModal();
   }
 };
+
+async function deletePassword(passwordId) {
+  if (confirm('Are you sure you want to delete this password?')) {
+    try {
+      const response = await fetch('/passwords', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ _id: passwordId })
+      });
+
+      if (response.ok) {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Failed to delete password');
+    }
+  }
+}
