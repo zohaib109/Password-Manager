@@ -2,10 +2,6 @@
 
 A simple web-based password manager application that allows users to securely store and manage their passwords.
 
-## ⚠️ Disclaimer
-
-This project is currently under development. Some features may need improvements or fixes. Please use with caution as security updates are being implemented.
-
 ## Features
 
 - User authentication (login/signup)
