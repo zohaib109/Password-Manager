@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import "dotenv/config";
 
 import sessionConfiguration from "./middlewares/sessionConfig.js";
 import mongooseConnection from "./utilities/database.js";
@@ -11,8 +12,8 @@ import errorHandler from "./middlewares/errorHandler.js";
 
 // Initialize express app and constants
 const app = express();
-const PORT = 3050;
-const databaseName = "password-manager";
+const PORT = process.env.PORT || 3050;
+const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/password-manager";
 
 // Basic Express Configuration
 app.set("view engine", "ejs");
@@ -34,7 +35,7 @@ app.use(errorHandler);
 // Start server
 async function startServer() {
   try {
-    await mongooseConnection(databaseName);
+    await mongooseConnection(MONGO_URI);
 
     app.listen(PORT, () => {
       console.log(`Server started at Port: ${PORT}`);

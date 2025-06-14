@@ -13,7 +13,7 @@ function togglePassword(button) {
   hiddenSpan.classList.toggle("hidden");
   visibleSpan.classList.toggle("hidden");
   button.textContent = button.textContent.replace(/\s/g, "");
-  button.textContent = button.textContent == "Show" ? "Hide" : "Show";
+  button.textContent = button.textContent == "Show_password" ? "Hide_password" : "Show_password";
 }
 
 // Show add password modal

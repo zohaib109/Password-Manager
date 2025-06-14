@@ -3,13 +3,14 @@ import usersCollection from "../models/users.js";
 async function handleUserSignup(req, res, next) {
   try {
     const { name, email, password } = req.body;
-    await usersCollection.create({
+    const user = await usersCollection.create({
       name,
       email,
       password,
     });
 
-    res.redirect("/");
+    req.session.userId = user._id;
+    res.redirect("/dashboard");
   } catch (err) {
     next(err);
   }
